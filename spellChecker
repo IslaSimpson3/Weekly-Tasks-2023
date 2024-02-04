@@ -1,0 +1,125 @@
+#Implement a rudimentary spell checker:
+#unable to make the spell checker correct the words and put it into a new text file.
+#my attempt for this in under my code 
+# this code only tell the user where the spelling mistakes are 
+
+def readDictionaryFile(dictionary_Filename):
+    dictionary_Words = []
+    inputFile = open(dictionary_Filename, "r")
+    for line in inputFile:
+        word = line.strip()
+        dictionary_Words.append(word)
+    inputFile.close()
+    return dictionary_Words
+
+def readTextFile(text_Filename):
+    words = []
+    with open(text_Filename, "r") as inputFile:  # The with statement will handle file closing
+        for line in inputFile:
+            wordsOnLine = line.strip().split()
+            for word in wordsOnLine:
+                words.append(word.strip(" .!\":;?").lower())
+    return words  # Make sure to return the words list after the with block
+
+
+def findErrors(dictionary_Words, text_Words):
+    missspelled_Words = []
+    for word in text_Words:
+        if word not in dictionary_Words:
+            missspelled_Words.append(word)
+    return missspelled_Words
+            
+
+def printErrors(errorList):
+    print("The misspelled words are:")
+    for word in errorList:
+        print(word)
+
+def main():
+    print("welcome to the spell checker")
+    dictionary_File = "dictionary.txt"
+    text_File = input("please enter the text file: ")
+    dictionary_List = readDictionaryFile(dictionary_File)
+    text_List = readTextFile(text_File)
+    error_List = findErrors(dictionary_List,text_List )
+    printErrors(error_List)
+
+main()
+
+
+#my cloest attempt to correcting the spelling errors and putting it into a new text file. it makes a new text file but there are no spelling corrections  
+#used https://www.youtube.com/watch?v=lmR4s8D_5k0 and chatGPT to help me complete this 
+#from spellchecker import SpellChecker
+#spell = SpellChecker()
+
+#def readDictionaryFile(dictionaryFilename):
+ #   dictionaryWords = []
+  #  inputFile = open(dictionaryFilename, "r")
+   # for line in inputFile:
+    #    word = line.strip()
+     #   dictionaryWords.append(word)
+    #inputFile.close()
+    #return dictionaryWords
+
+#def readTextFile(textFilename):
+ #   words = []
+  #  with open(textFilename, "r") as inputFile:  # This will automatically close the file when done
+   #     for line in inputFile:
+    #        wordsOnLine = line.strip().split()
+     #       for word in wordsOnLine:
+      #          words.append(word.strip(" .!\":;?").lower())
+ #   return words  # Make sure to return the words list
+
+
+#def findErrors(dictionaryWords, textWords):
+ #   misspelledWords = []
+  #  for index, word in enumerate(textWords):
+   #     if word not in dictionaryWords:
+    #        misspelledWords.append((word, index))  # Create a tuple (word, index)
+    #return misspelledWords
+          
+
+#def printErrors(errorList):
+ #   print("This misspelled words are:")
+  #  for word in errorList:
+   #     print(word)
+
+#def writeCorrectedText(correctedWords, outputFilename):
+ #   with open(outputFilename, 'w') as outputFile:
+  #      outputFile.write(' '.join(correctedWords))
+
+
+#def correctErrors(textWords, errorList):
+ #   for misspelled, index in errorList:
+  #      # Get the most likely correction for the misspelled word
+   #     correction = spell.correction(misspelled)
+        # Replace the misspelled word with the correction
+    #    textWords[index] = correction
+    #return textWords
+
+#help from chatGPT 
+#def main():
+ #   print("Welcome to the spell checker")
+  #  dictionaryFile = "dictionary.txt"  # Make sure this is the correct path to your dictionary file
+   # textFile = input("Please enter the text file: ")  # The user will input the file to be checked
+    #outputFilename = "corrected_" + textFile  # This will be the name of the corrected output file
+    # Read the list of correct words from the dictionary file
+   # dictionaryList = readDictionaryFile(dictionaryFile)
+    # Read the list of words from the text file to be checked
+   # textList = readTextFile(textFile)
+    # Find misspelled words by comparing the text words against the dictionary
+    #errorList = findErrors(dictionaryList, textList)
+    # Print the list of misspelled words
+    #printErrors(errorList)
+    # Correct the misspelled words in the text
+    #correctedText = correctErrors(textList, errorList)
+    # Write the corrected text to a new file
+    #writeCorrectedText(correctedText, outputFilename)
+
+    #print(f"Corrected file written to {outputFilename}")
+
+# This line calls the main function to start the program
+#if __name__ == "__main__":
+ #   main()
+
+
